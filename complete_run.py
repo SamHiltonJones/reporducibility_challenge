@@ -49,7 +49,7 @@ def run_multiple_experiments(learning_rates, num_runs=10):
     return results
 
 if __name__ == "__main__":
-    learning_rates = [0.1, 0.03, 0.01, 0.003, 0.001]
+    learning_rates = [0.01, 0.003, 0.001]
     results = run_multiple_experiments(learning_rates)
 
     plt.figure(figsize=(10, 6))
