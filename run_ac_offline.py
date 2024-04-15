@@ -7,7 +7,7 @@ from core.utils import torch_utils, logger, run_funcs
 from core.agent.in_sample import *
 
 def load_data(is_training):
-    base_path = "/home/sam/jack_and_sam/reproducibility_challenge/core/"
+    base_path = "core/"
     dataset_file = 'train_data.pkl' if is_training else 'test_data.pkl'
     file_path = os.path.join(base_path, dataset_file)
     

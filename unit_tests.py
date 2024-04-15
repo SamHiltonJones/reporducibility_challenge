@@ -67,7 +67,7 @@ class TestInSampleAC(unittest.TestCase):
         self.gamma = 0.99
         self.tau = 0.5
         self.seed = 0
-        self.offline_data_file = '/home/sam/jack_and_sam/reproducibility_challenge/core/expert_data.pkl'
+        self.offline_data_file = 'core/expert_data.pkl'
         self.offline_data = load_expert_data(self.offline_data_file)  
 
         project_root = os.path.abspath(os.path.dirname(__file__))      
