@@ -4,7 +4,7 @@ import os
 from collections import Counter
 
 # Path to the train_data.pkl file
-data_path = '/home/sam/jack_and_sam/reproducibility_challenge/inac_pytorch/core/train_data.pkl'  # Change to the correct path
+data_path = '/home/sam/jack_and_sam/reproducibility_challenge/core/train_data.pkl'  # Change to the correct path
 
 def analyze_data(data_path):
     with open(data_path, 'rb') as f:

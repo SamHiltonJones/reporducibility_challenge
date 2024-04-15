@@ -5,7 +5,7 @@ import os
 import matplotlib.pyplot as plt
 
 def load_data(is_training):
-    base_path = "/home/sam/jack_and_sam/reproducibility_challenge/inac_pytorch/core/"
+    base_path = "/home/sam/jack_and_sam/reproducibility_challenge/core/"
     dataset_file = 'train_data.pkl' if is_training else 'test_data.pkl'
     file_path = os.path.join(base_path, dataset_file)
     
@@ -42,12 +42,12 @@ def run_steps(agent, max_steps, log_interval, eval_path, train_data, test_data):
 
     agent.save()
     np.save(os.path.join(eval_path, "evaluations.npy"), np.array(evaluations))
-    plt.figure(figsize=(10, 5))
-    plt.plot(agent.average_rewards, label='Average Reward')
-    plt.xlabel('Episodes')
-    plt.ylabel('Average Reward')
-    plt.title('Average Reward vs. Episodes')
-    plt.legend()
-    plt.grid(True)
-    plt.show()
+    # plt.figure(figsize=(10, 5))
+    # plt.plot(agent.average_rewards, label='Average Reward')
+    # plt.xlabel('Episodes')
+    # plt.ylabel('Average Reward')
+    # plt.title('Average Reward vs. Episodes')
+    # plt.legend()
+    # plt.grid(True)
+    # plt.show()
     print("Completed running steps.")

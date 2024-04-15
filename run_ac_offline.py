@@ -7,7 +7,7 @@ from core.utils import torch_utils, logger, run_funcs
 from core.agent.in_sample import *
 
 def load_data(is_training):
-    base_path = "/home/sam/jack_and_sam/reproducibility_challenge/inac_pytorch/core/"
+    base_path = "/home/sam/jack_and_sam/reproducibility_challenge/core/"
     dataset_file = 'train_data.pkl' if is_training else 'test_data.pkl'
     file_path = os.path.join(base_path, dataset_file)
     
@@ -27,9 +27,9 @@ def load_data(is_training):
 
     return loaded_experiences, data_dict
 
-if __name__ == '__main__':
+def run_experiment(learning_rate, seed):
     parser = argparse.ArgumentParser(description="run_file")
-    parser.add_argument('--seed', default=0, type=int)
+    parser.add_argument('--seed', default=seed, type=int)
     parser.add_argument('--env_name', default='grid', type=str)
     parser.add_argument('--dataset', default='expert', type=str)
     parser.add_argument('--discrete_control', default=1, type=int)
@@ -37,9 +37,9 @@ if __name__ == '__main__':
     parser.add_argument('--action_dim', default=4, type=int)
     parser.add_argument('--tau', default=0.01, type=float)
     
-    parser.add_argument('--max_steps', default=1000000, type=int)
+    parser.add_argument('--max_steps', default=10000, type=int)
     parser.add_argument('--log_interval', default=100, type=int)
-    parser.add_argument('--learning_rate', default=0.1, type=float)
+    parser.add_argument('--learning_rate', default=learning_rate, type=float)
     parser.add_argument('--hidden_units', default=64, type=int)
     parser.add_argument('--batch_size', default=100, type=int)
     parser.add_argument('--timeout', default=100, type=int)
@@ -97,3 +97,4 @@ if __name__ == '__main__':
 
     print("Agent initialized.")
     run_funcs.run_steps(agent_obj, cfg.max_steps, cfg.log_interval, cfg.exp_path, train_experience, test_data_dict['pkl'])
+    return agent_obj.episode_rewards

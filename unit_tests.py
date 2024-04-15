@@ -6,7 +6,7 @@ import os
 import numpy as np
 import copy
 from core.agent.in_sample import InSampleAC
-from inac_pytorch.core.environment.data_generation import GridWorldEnv
+from core.environment.data_generation import GridWorldEnv
 from core.utils.run_funcs import run_steps, load_testset
 from core.utils import logger
 
@@ -67,7 +67,7 @@ class TestInSampleAC(unittest.TestCase):
         self.gamma = 0.99
         self.tau = 0.5
         self.seed = 0
-        self.offline_data_file = '/home/sam/jack_and_sam/reproducibility_challenge/inac_pytorch/core/expert_data.pkl'
+        self.offline_data_file = '/home/sam/jack_and_sam/reproducibility_challenge/core/expert_data.pkl'
         self.offline_data = load_expert_data(self.offline_data_file)  
 
         project_root = os.path.abspath(os.path.dirname(__file__))      
