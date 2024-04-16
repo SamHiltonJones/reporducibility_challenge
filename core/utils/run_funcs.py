@@ -4,13 +4,28 @@ import numpy as np
 import os
 import matplotlib.pyplot as plt
 
-def load_data(is_training):
+def load_data(is_training, dataset_name):
     base_path = "core/"
-    dataset_file = 'train_data.pkl' if is_training else 'test_data.pkl'
+    dataset_suffix = 'train_data.pkl' if is_training else 'test_data.pkl'
+    dataset_file = f'{dataset_name}_{dataset_suffix}'  # Build the file name dynamically based on the dataset
     file_path = os.path.join(base_path, dataset_file)
     
-    with open(file_path, 'rb') as f:
-        return pickle.load(f)
+    with open(file_path, 'rb') as file:
+        loaded_experiences, loaded_data_dict = pickle.load(file)
+
+    if 'pkl' in loaded_data_dict:
+        data_dict = loaded_data_dict['pkl']
+    else:
+        data_dict = loaded_data_dict  
+
+    for key, value in data_dict.items():
+        if hasattr(value, 'shape'):
+            print(f"Loaded data - {key} shape: {value.shape}")
+        else:
+            print(f"Loaded data - {key} is not an array")
+
+    return loaded_experiences, data_dict
+
 
 def run_steps(agent, max_steps, log_interval, eval_path, train_data, test_data):
     print("Starting run_steps method")

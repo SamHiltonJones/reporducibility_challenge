@@ -40,14 +40,12 @@ class Replay:
         sampled_indices = [self.rng.randint(0, len(self.data)) for _ in range(batch_size)]
         sampled_experiences = [self.data[ind] for ind in sampled_indices]
 
-        # Separate the elements of the experiences
         states = [exp[0] for exp in sampled_experiences]
         actions = [exp[1] for exp in sampled_experiences]
         rewards = [exp[2] for exp in sampled_experiences]
         next_states = [exp[3] for exp in sampled_experiences]
         terminals = [exp[4] for exp in sampled_experiences]
 
-        # Convert each list to a NumPy array
         states = np.array(states)
         actions = np.array(actions)
         rewards = np.array(rewards)

@@ -117,7 +117,7 @@ if __name__ == '__main__':
     env = GridWorldEnv(grid_matrix)
     (train_experiences, test_experiences), (train_data_dict, test_data_dict) = generate_dataset_formatted(env, transitions=10000)
 
-    with open('core/train_data.pkl', 'wb') as f:
+    with open('core/train_data_expert.pkl', 'wb') as f:
         pickle.dump((train_experiences, {'pkl': train_data_dict}), f)
-    with open('core/test_data.pkl', 'wb') as f:
+    with open('core/test_data_expert.pkl', 'wb') as f:
         pickle.dump((test_experiences, {'pkl': test_data_dict}), f)

@@ -6,7 +6,7 @@ import os
 import numpy as np
 import copy
 from core.agent.in_sample import InSampleAC
-from core.environment.data_generation import GridWorldEnv
+from core.environment.data_generation_expert import GridWorldEnv
 from core.utils.run_funcs import run_steps, load_testset
 from core.utils import logger
 

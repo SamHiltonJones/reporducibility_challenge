@@ -6,9 +6,10 @@ import core.environment.env_factory as environment
 from core.utils import torch_utils, logger, run_funcs
 from core.agent.in_sample import *
 
-def load_data(is_training):
+def load_data(is_training, dataset_name):
     base_path = "core/"
-    dataset_file = 'train_data.pkl' if is_training else 'test_data.pkl'
+    dataset_suffix = {'expert': 'expert', 'random': 'random', 'missing_action': 'missing_action', 'mixed': 'mixed'}
+    dataset_file = f'train_data_{dataset_suffix[dataset_name]}.pkl' if is_training else f'test_data_{dataset_suffix[dataset_name]}.pkl'
     file_path = os.path.join(base_path, dataset_file)
     
     with open(file_path, 'rb') as file:
@@ -27,11 +28,11 @@ def load_data(is_training):
 
     return loaded_experiences, data_dict
 
-def run_experiment(learning_rate, seed):
+def run_experiment(learning_rate, seed, dataset_name='expert'):
     parser = argparse.ArgumentParser(description="run_file")
     parser.add_argument('--seed', default=seed, type=int)
     parser.add_argument('--env_name', default='grid', type=str)
-    parser.add_argument('--dataset', default='expert', type=str)
+    parser.add_argument('--dataset', default=dataset_name, type=str, choices=['expert', 'random', 'missing_action', 'mixed'])
     parser.add_argument('--discrete_control', default=1, type=int)
     parser.add_argument('--state_dim', default=2, type=int)
     parser.add_argument('--action_dim', default=4, type=int)
@@ -60,8 +61,9 @@ def run_experiment(learning_rate, seed):
     cfg.exp_path = os.path.join(project_root, exp_path)
     torch_utils.ensure_dir(cfg.exp_path)
 
-    train_experience, train_data_dict = load_data(is_training=True)
-    test_experience, test_data_dict = load_data(is_training=False)
+    train_experience, train_data_dict = load_data(is_training=True, dataset_name=cfg.dataset)
+    test_experience, test_data_dict = load_data(is_training=False, dataset_name=cfg.dataset)
+
 
     cfg.offline_data = train_data_dict.get('pkl', None)
     cfg.env_fn = environment.EnvFactory.create_env_fn(cfg)
@@ -71,6 +73,7 @@ def run_experiment(learning_rate, seed):
         logger.log_config(cfg)
     except KeyError as e:
         print(f"KeyError encountered in logger configuration: {e}")
+
 
     print("Initializing agent...")
     agent_obj = InSampleAC(
